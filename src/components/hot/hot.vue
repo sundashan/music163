@@ -1,6 +1,10 @@
 <template>
   <div class="hot">
     <div class="hot-content">
+      <div class="hotTitle">
+        <span class="tit">{{picList.ListName}}</span>
+        <span class="time">{{updateTime}}</span>
+      </div>
       <ul>
         <li v-for="(item, $index) in hotlist" class="item">
           <div class="item-left">{{$index+1}}</div>
@@ -21,7 +25,9 @@
   export default {
     data() {
       return {
-        hotlist: []
+        hotlist: [],
+        picList: [],
+        updateTime: []
       };
     },
     created() {
@@ -32,6 +38,8 @@
         getHotList().then((res) => {
           if (res.code === ERR_OK) {
             this.hotlist = res.songlist;
+            this.picList = res.topinfo;
+            this.updateTime = res.update_time;
             console.log(res.songlist);
           }
         });
@@ -43,7 +51,24 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.styl"
   .hot
+    position: absolute
+    top: 104px
     .hot-content
+      .hotTitle
+        background: url('./hot_music_bg_2x.jpg') center;
+        width: 100%
+        height: 145.88px
+        .tit
+          font-size: 24px
+          position: absolute
+          margin: 45px 0 0 20px
+          color: #fff
+        .time
+          font-size: 12px
+          display: block
+          padding-left: 20px
+          color: #fff
+          padding-top: 95px
       .item
         display: flex
         width: 100%

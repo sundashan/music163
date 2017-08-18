@@ -29,7 +29,7 @@ export default {};
     margin: 0
     padding: 0
     .header
-      position: relative
+      position: fixed
       width: 100%
       height: 64px
       top: 0
@@ -53,6 +53,8 @@ export default {};
       display: flex
       width: 100%
       height: 40px
+      position: absolute
+      top: 64px
       line-height: 40px
       border-1px(rgba(7, 17, 27, 0.1))
       .tab-item
