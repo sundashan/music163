@@ -22,5 +22,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 Vue仿写一个网易云音乐移动端
 1. 使用Vue（包括Vue-Router、Vue-cli等）、自动化构建工具：webpack、代码检查工具：eslint
-2. 主要页面： 推荐页、热歌榜、搜索、播放
-3. 搜索和播放未完成。。。正在补充
+2. 包含： 推荐页、热歌榜、搜索、播放等功能
+3. 后续继续补充完善其他功能
