@@ -1,37 +1,47 @@
 <template>
-  <div class="hot">
+  <div class="hot" ref="hotScroll">
     <div class="hot-content">
       <div class="hotTitle">
         <span class="tit">{{picList.ListName}}</span>
         <span class="time">{{updateTime}}</span>
       </div>
       <ul>
-        <li v-for="(item, $index) in hotlist" class="item">
+        <li @click="selectSong(player, $event)" v-for="(player, $index) in hotlist" class="item">
           <div class="item-left">{{$index+1}}</div>
           <div class="item-right border-1px">
-            <div class="title">{{item.data.songname}}</div>
-            <p class="desc">{{item.data.singer[0].name}} · {{item.data.albumname}}</p>      
+            <div class="title">{{player.data.songname}}</div>
+            <p class="desc">{{player.data.singer[0].name}} · {{player.data.albumname}}</p>     
           </div>
         </li>
       </ul>
     </div>
+    <player :player="selectedSong" ref="player"></player>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll';
   import {getHotList} from 'api/recommend';
   import {ERR_OK} from 'api/config';
+  import player from 'components/player/player';
   
   export default {
+    props: {
+
+    },
     data() {
       return {
         hotlist: [],
         picList: [],
-        updateTime: []
+        updateTime: [],
+        selectedSong: {}
       };
     },
     created() {
       this._getHotList();
+    },
+    components: {
+      player
     },
     methods: {
       _getHotList() {
@@ -41,8 +51,24 @@
             this.picList = res.topinfo;
             this.updateTime = res.update_time;
             console.log(res.songlist);
+            this.$nextTick(() => {
+              if (!this.scroll) {
+                this.scroll = new BScroll(this.$refs.hotScroll, {
+                  click: true
+                });
+              } else {
+                this.scroll.refresh();
+              }
+            });
           }
         });
+      },
+      selectSong(player, event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.selectedSong = player;
+        this.$refs.player.show();
       }
     }
   };
@@ -53,6 +79,9 @@
   .hot
     position: absolute
     top: 104px
+    bottom: 0
+    width: 100%
+    overflow: hidden
     .hot-content
       .hotTitle
         background: url('./hot_music_bg_2x.jpg') center;
