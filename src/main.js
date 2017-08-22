@@ -8,6 +8,7 @@ import hotList from './components/hot/hot';
 import search from './components/search/search';
 import VueLazyLoad from 'vue-lazyload';
 import store from './store';
+import playlist from './components/playlist/playlist';
 
 Vue.use(VueRouter);
 Vue.use(VueLazyLoad, {
@@ -15,7 +16,16 @@ Vue.use(VueLazyLoad, {
 });
 
 const routes = [
-	{path: '/recommend', component: recommend},
+	{
+		path: '/recommend',
+		component: recommend,
+		children: [
+			{
+				path: ':id',
+				component: playlist
+			}
+		]
+	},
 	{path: '/hot', component: hotList},
 	{path: '/search', component: search}
 	];

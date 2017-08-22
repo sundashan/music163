@@ -5,7 +5,7 @@
 		  	<div class="recommend-list">
 		  		<h1 class="title">推荐歌单</h1>
 		  		<ul class="ull">
-		  			<li v-for="(item, $index) in playlist" v-show="$index < 6" class="item">
+		  			<li @click="selectItem(item, dissid)" v-for="(item, $index) in playlist" class="item">
 		  				<div class="remd_img">
 		  					<img width="100%" v-lazy="item.imgurl">
 		  				</div>
@@ -16,14 +16,16 @@
 		  	<div class="newsong">
 		  		<h1 class="title">最新音乐</h1>
 		  		<ul>  
-		  			<li v-for="(news, $index) in newlist" v-show="$index < 10" class="news border-1px">
-		  				<div class="name">{{news.data.songname}}</div>
-		  				<p class="desc">{{news.data.singer[0].name}} · {{news.data.albumname}}</p>
+		  			<li  @click="selectSong(player, $event)" v-for="(player, $index) in newlist" class="news border-1px">
+		  				<div class="name">{{player.data.songname}}</div>
+		  				<p class="desc">{{player.data.singer[0].name}} · {{player.data.albumname}}</p>
 		  			</li>
 		  		</ul>
 		  	</div>
 	  	</div>
 	</div>
+	<player :player="selectedSong" ref="player"></player>
+	<router-view :playlist="selectedRecommed, dissid"></router-view>
   </div>
 </template>
 
@@ -31,13 +33,16 @@
 	import BScroll from 'better-scroll';
 	import {getRecommend, getPlaylist, getNewList} from 'api/recommend';
 	import {ERR_OK} from 'api/config';
+	import player from 'components/player/player';
 
 	export default {
 		data() {
 			return {
 				recommends: [],
 				playlist: [],
-				newlist: []
+				newlist: [],
+				selectedSong: {},
+				selectedRecommed: {}
 			};
 		},
 		created() {
@@ -66,7 +71,7 @@
 			_getPlaylist() {
 				getPlaylist().then((res) => {
 					if (res.code === ERR_OK) {
-						this.playlist = res.data.list;
+						this.playlist = res.data.list.slice(0, 6);
 						this.$nextTick(() => {
 							this.scroll.refresh();
 						});
@@ -76,13 +81,31 @@
 			_getNewList() {
 				getNewList().then((res) => {
 					if (res.code === ERR_OK) {
-						this.newlist = res.songlist;
+						this.newlist = res.songlist.slice(0, 10);
 						this.$nextTick(() => {
 							this.scroll.refresh();
 						});
 					}
 				});
+			},
+			selectItem(item, dissid) {
+				this.$router.push({
+					path: `/recommend/palylist`
+				});
+				this.selectedRecommed = item;
+				this.dissid = item.dissid;
+				console.log(item.dissid);
+			},
+			selectSong(player, event) {
+				if (!event._constructed) {
+					return;
+				}
+				this.selectedSong = player;
+				this.$refs.player.show();
 			}
+		},
+		components: {
+			player
 		}
 	};
 </script>

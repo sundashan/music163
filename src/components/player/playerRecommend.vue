@@ -1,25 +1,25 @@
 <template>
-  <div class="player" v-show="showPlayer" ref="player">
+  <div class="playerRecommend" v-show="showPlayer" ref="player">
   	<div class="normal-palyer">
   		<div class="background">
-  			<img width="100%" height="100%" :src="`https://y.gtimg.cn/music/photo_new/T002R300x300M000${player.data.albummid}.jpg?max_age=2592000`">
+  			<img width="100%" height="100%" :src="`https://y.gtimg.cn/music/photo_new/T002R300x300M000${player.albummid}.jpg?max_age=2592000`">
   		</div>
   		<div class="top">
   			<div class="back" @click="hide">返回</div>
-  			<p class="title">{{player.data.songname}}</p>
+  			<p class="title">{{player.songname}}</p>
   		</div>
   		<div class="middle">
         <div class="middle-content">
           <div class="circle-wrapper">
             <div class="circle">
-              <img :src="`https://y.gtimg.cn/music/photo_new/T002R300x300M000${player.data.albummid}.jpg?max_age=2592000`">
+              <img :src="`https://y.gtimg.cn/music/photo_new/T002R300x300M000${player.albummid}.jpg?max_age=2592000`">
             </div>
           </div>
         </div>
         <div class="lyric"></div>
   		</div>
   		<div class="bottom">
-        <audio :src="`http://ws.stream.qqmusic.qq.com/${player.data.songid}.m4a?fromtag=46`" @paly="ready" autoplay="autoplay" controls="controls" loop="loop"></audio>
+        <audio :src="`http://ws.stream.qqmusic.qq.com/${player.songid}.m4a?fromtag=46`" @paly="ready" autoplay="autoplay" controls="controls"></audio>
   		</div>
   	</div>
   	<div class="mini-palyer"></div>
@@ -89,12 +89,12 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.styl"
 
-  .player
+  .playerRecommend
     position: fixed
     left: 0
     top: 0
     width: 100%
-    z-index: 200
+    z-index: 2000
     background: #fff
     height:100%
     .normal-palyer

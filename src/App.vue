@@ -49,6 +49,7 @@
         margin-left: 10px
         width: 150px
         height: 64px
+        margin-top: -2px
       .download
         height: 30px
         line-height: 30px
