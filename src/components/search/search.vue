@@ -2,16 +2,19 @@
 	<div class="search" ref="search">
 		<div class="search-box-wrapper border-1px">
 			<div class="content">
-				<search-box ref="searchBox"></search-box>
+				<search-box ref="searchBox" @query="onQueryChange"></search-box>
 			</div>
 		</div>
-		<div class="hotsearch">
+		<div class="hotsearch" v-show="!query">
 			<h1 class="title">热门搜索</h1>
 			<ul>
 				<li @click="addQuery(item.k)" v-for="item in hotkey" class="item">
 					<span>{{item.k}}</span>
 				</li>
 			</ul>
+		</div>
+		<div class="search-result">
+			<propose :query="query"></propose>
 		</div>
 	</div>
 </template>
@@ -21,14 +24,17 @@
 	import searchBox from 'base/searchBox/searchBox';
 	import {getHotkey} from 'api/search';
 	import {ERR_OK} from 'api/config';
+	import propose from 'components/propose/propose';
 
 	export default {
 		components: {
-			searchBox
+			searchBox,
+			propose
 		},
 		data() {
 			return {
-				hotkey: []
+				hotkey: [],
+				query: ''
 			};
 		},
 		created() {
@@ -53,6 +59,9 @@
 			},
 			addQuery(query) {
 				this.$refs.searchBox.setQuery(query);
+			},
+			onQueryChange(query) {
+				this.query = query;
 			}
 		}
 	};
@@ -91,4 +100,6 @@
 				color: #333
 				border: 1px solid rgba(7, 17, 27, 0.1)
 				border-radius: 20px
+		.search-result
+			margin-left: 15px
 </style>

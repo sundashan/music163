@@ -15,9 +15,11 @@
   		</div>
   		<div class="middle">
   			<div class="tags">
-  				<span>标签：</span>
+  				<span>标签:</span>
   			</div>
-  			<div class="desc">简介：{{recommendDetail.desc}}</div>
+  			<div class="desc">
+  				<span>简介:</span><span v-html="recommendDetail.desc"></span>
+  			</div>
   		</div>
   		<div class="bottom">
   			<div class="tit">歌曲列表</div>
@@ -147,6 +149,8 @@
 				.tags
 					padding: 10px 0
 					line-height: 20px
+					font-size: 14px
+					color: #666
 				.desc
 					margin-right: 15px
 					font-size: 14px
@@ -154,6 +158,8 @@
 					line-height: 19px
 					color: #666
 					overflow: hidden
+					span
+						margin-right: 15px
 			.bottom
 				position: relative
 				width: 100%
