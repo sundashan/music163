@@ -78,3 +78,4 @@ export function getNewList() {
   });
   return jsonp(url, data, options);
 }
+

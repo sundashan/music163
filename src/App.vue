@@ -15,12 +15,21 @@
         <router-link to="/search">搜索</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <player></player>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-export default {};
+  import player from 'components/player/player';
+  
+  export default {
+    components: {
+      player
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -34,11 +43,13 @@ export default {};
       height: 64px
       top: 0
       left: 0
+      z-index: 100
       background: #d43c33
       .logo
         margin-left: 10px
         width: 150px
         height: 64px
+        margin-top: -2px
       .download
         height: 30px
         line-height: 30px
@@ -53,15 +64,16 @@ export default {};
       display: flex
       width: 100%
       height: 40px
-      position: absolute
+      position: fixed
       top: 64px
       line-height: 40px
+      z-index: 100
+      background: #fff
       border-1px(rgba(7, 17, 27, 0.1))
       .tab-item
         flex: 1        
         text-align: center
         text-decoration: none
-        position: relative
         & > a
           display: block
           font-size: 14px
