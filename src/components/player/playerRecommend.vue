@@ -6,7 +6,9 @@
   		</div>
   		<div class="top">
   			<div class="back" @click="hide">返回</div>
-  			<p class="title">{{player.songname}}</p>
+        <div class="tit">
+          <p class="title">{{player.songname}}</p>
+        </div>
   		</div>
   		<div class="middle">
         <div class="middle-content">
@@ -116,12 +118,18 @@
           width: 50px
           font-size: 16px
           padding-left: 10px
+          position: absolute
           color: #fff
-        .title
+        .tit
           flex: 1
           font-size: 16px
           text-align: center
           color: #fff
+          .title
+            width: 80%
+            margin-left: 12%
+            height: 64px
+            overflow: hidden
       .middle
         position: fixed
         width: 100%

@@ -1,19 +1,21 @@
 <template>
 	<div class="propose">
 		<ul>
-			<li class="propose-list" v-for="item in result">
+			<li @click="selectSong(item,$event)" class="propose-list" v-for="item in result">
 				<div class="content">
 					<h1 class="name" v-html="item.songname"></h1>
 					<p class="text" v-html="item.singer[0].name"></p>
 				</div>
 			</li>
 		</ul>
+		<playerRecommend :player="selectedSong" ref="player"></playerRecommend>
 	</div>
 </template>
 
 <script type="text/ecmascript-6">
 	import {search} from 'api/search';
 	import {ERR_OK} from 'api/config';
+	import playerRecommend from 'components/player/playerRecommend';
 
 	export default {
 		props: {
@@ -29,7 +31,8 @@
 		data() {
 			return {
 				page: 1,
-				result: []
+				result: [],
+				selectedSong: {}
 			};
 		},
 		methods: {
@@ -40,12 +43,22 @@
 						console.log(res.data.song);
 					}
 				});
+			},
+			selectSong(item, event) {
+				if (!event._constructed) {
+					return;
+				}
+				this.selectedSong = item;
+				this.$refs.player.show();
 			}
 		},
 		watch: {
 			query() {
 				this.search();
 			}
+		},
+		components: {
+			playerRecommend
 		}
 	};
 </script>
