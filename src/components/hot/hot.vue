@@ -34,7 +34,8 @@
         hotlist: [],
         picList: [],
         updateTime: [],
-        selectedSong: {}
+        selectedSong: {},
+        songmid: {}
       };
     },
     created() {
@@ -50,7 +51,6 @@
             this.hotlist = res.songlist;
             this.picList = res.topinfo;
             this.updateTime = res.update_time;
-            console.log(res.songlist);
             this.$nextTick(() => {
               if (!this.scroll) {
                 this.scroll = new BScroll(this.$refs.hotScroll, {

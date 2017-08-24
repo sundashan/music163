@@ -7,7 +7,7 @@
   		<div class="top">
   			<div class="back" @click="hide">返回</div>
         <div class="tit">
-          <p class="title">{{player.data.songname}}</p>
+          <p class="title" v-html="player.data.songname"></p>
         </div>
   		</div>
   		<div class="middle">
@@ -18,7 +18,8 @@
             </div>
           </div>
         </div>
-        <div class="lyric"></div>
+        <div class="lyric">
+        </div>
   		</div>
   		<div class="bottom">
         <audio :src="`http://ws.stream.qqmusic.qq.com/${player.data.songid}.m4a?fromtag=46`" @paly="ready" autoplay="autoplay" controls="controls" loop="loop"></audio>
@@ -33,6 +34,7 @@
   import BScroll from 'better-scroll';
   import {getLyric} from 'api/song';
   import {ERR_OK} from 'api/config';
+  let Base64 = require('js-base64').Base64;
 
 	export default {
     props: {
@@ -76,11 +78,14 @@
         this.songReady = true;
       },
       _getLyric() {
-        getLyric().then((res) => {
+        let songmid = this.songmid;
+        console.log(songmid);
+        getLyric(songmid).then((res) => {
+          console.log(songmid);
           if (res.code === ERR_OK) {
-            this.lyricList = res.lyric;
-            console.log(res);
-            console.log(res.lyric);
+            this.lyricList = Base64.decode(res.lyric);
+            console.log(Base64.decode(res.lyric));
+            console.log(Base64.decode(res.lyric).lines.length);
           }
         });
       }

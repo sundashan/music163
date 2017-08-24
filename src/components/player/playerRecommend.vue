@@ -7,7 +7,7 @@
   		<div class="top">
   			<div class="back" @click="hide">返回</div>
         <div class="tit">
-          <p class="title">{{player.songname}}</p>
+          <p class="title" v-html="player.songname"></p>
         </div>
   		</div>
   		<div class="middle">
@@ -33,6 +33,7 @@
   import BScroll from 'better-scroll';
   import {getLyric} from 'api/song';
   import {ERR_OK} from 'api/config';
+  let Base64 = require('js-base64').Base64;
 
 	export default {
     props: {
@@ -78,9 +79,7 @@
       _getLyric() {
         getLyric().then((res) => {
           if (res.code === ERR_OK) {
-            this.lyricList = res.lyric;
-            console.log(res);
-            console.log(res.lyric);
+            this.lyricList = Base64.decode(res.lyric);
           }
         });
       }

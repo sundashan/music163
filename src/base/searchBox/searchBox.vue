@@ -56,4 +56,5 @@
 			outline:medium
 		.del
 			color: #333
+			padding: 10px
 </style>

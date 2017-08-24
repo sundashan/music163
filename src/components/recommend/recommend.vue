@@ -1,7 +1,7 @@
 <template>
   <div class="recommend" ref="recommendScroll">
   	<div>
-	  	<div class="recommend-content">
+	  	<div class="content">
 		  	<div class="recommend-list">
 		  		<h1 class="title">推荐歌单</h1>
 		  		<ul class="ull">
@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
 	import BScroll from 'better-scroll';
-	import {getRecommend, getPlaylist, getNewList} from 'api/recommend';
+	import {getPlaylist, getNewList} from 'api/recommend';
 	import {ERR_OK} from 'api/config';
 	import player from 'components/player/player';
 
@@ -42,7 +42,8 @@
 				playlist: [],
 				newlist: [],
 				selectedSong: {},
-				selectedRecommed: {}
+				selectedRecommed: {},
+				dissid: []
 			};
 		},
 		created() {
@@ -53,21 +54,10 @@
 					});
 				}
 			});
-			this._getRecommend();
 			this._getPlaylist();
 			this._getNewList();
 		},
 		methods: {
-			_getRecommend() {
-				getRecommend().then((res) => {
-					if (res.code === ERR_OK) {
-						this.recommends = res.data.slider;
-						this.$nextTick(() => {
-							this.scroll.refresh();
-						});
-					}
-				});
-			},
 			_getPlaylist() {
 				getPlaylist().then((res) => {
 					if (res.code === ERR_OK) {
@@ -90,11 +80,10 @@
 			},
 			selectItem(item, dissid) {
 				this.$router.push({
-					path: `/recommend/palylist`
+					path: `/recommend/${item.dissid}`
 				});
 				this.selectedRecommed = item;
 				this.dissid = item.dissid;
-				console.log(item.dissid);
 			},
 			selectSong(player, event) {
 				if (!event._constructed) {
@@ -119,7 +108,7 @@
 		top: 104px
 		bottom: 0
 		overflow: hidden
-		.recommend-content
+		.content
 			height: 100%
 			.recommend-list
 				padding-top: 20px

@@ -47,11 +47,17 @@
 	import playerRecommend from 'components/player/playerRecommend';
 	export default {
 		props: {
+			playlist: {
+				type: Array,
+				default: ''
+			},
 			item: {
-				type: Object
+				type: Object,
+				default: ''
 			},
 			dissid: {
-				type: Number
+				type: Number,
+				default: ''
 			}
 		},
 		data() {
@@ -69,8 +75,6 @@
 					console.log(this.dissid);
 					if (res.code === ERR_OK) {
 						this.recommendDetail = res.cdlist[0];
-						console.log(res);
-						console.log(this.recommendDetail);
 						this.$nextTick(() => {
 							if (!this.scroll) {
 								this.scroll = new BScroll(this.$refs.playlist, {
@@ -155,7 +159,7 @@
 					margin-right: 15px
 					font-size: 14px
 					height: 60px
-					line-height: 19px
+					line-height: 20px
 					color: #666
 					overflow: hidden
 					span

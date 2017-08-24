@@ -17,6 +17,10 @@ Vue.use(VueLazyLoad, {
 
 const routes = [
 	{
+		path: '/',
+		redirect: '/recommend'
+	},
+	{
 		path: '/recommend',
 		component: recommend,
 		children: [
