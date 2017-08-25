@@ -48,15 +48,15 @@
 	export default {
 		props: {
 			playlist: {
-				type: Array,
-				default: ''
-			},
-			item: {
 				type: Object,
 				default: ''
 			},
+			item: {
+				type: String,
+				default: ''
+			},
 			dissid: {
-				type: Number,
+				type: String,
 				default: ''
 			}
 		},

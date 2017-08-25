@@ -21,7 +21,7 @@
         <div class="lyric"></div>
   		</div>
   		<div class="bottom">
-        <audio :src="`http://ws.stream.qqmusic.qq.com/${player.songid}.m4a?fromtag=46`" @paly="ready" autoplay="autoplay" controls="controls"></audio>
+        <audio :src="`http://ws.stream.qqmusic.qq.com/${player.songid}.m4a?fromtag=46`" @paly="ready" autoplay="autoplay" controls="controls" loop="loop"></audio>
   		</div>
   	</div>
   	<div class="mini-palyer"></div>
