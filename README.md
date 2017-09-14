@@ -26,10 +26,3 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
  ![image](https://github.com/sundashan/music163/blob/master/screenshot/screenshot2.png)
  
- ![image](https://github.com/sundashan/music163/blob/master/screenshot/screenshot3.png)
- 
- ![image](https://github.com/sundashan/music163/blob/master/screenshot/screenshot4.png)
- 
- ![image](https://github.com/sundashan/music163/blob/master/screenshot/screenshot5.png)
- 
- ![image](https://github.com/sundashan/music163/blob/master/screenshot/screenshot6.png)
